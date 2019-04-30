@@ -349,20 +349,19 @@ CreateFunPtr PlatformExtension::GetObjectCreationFunctionPtr(
   return NULL;
 }
 
-std::unique_ptr<gd::Behavior> PlatformExtension::CreateBehavior(
+std::unique_ptr<gd::Behavior> PlatformExtension::GetBehavior(
     gd::String type) const {
   if (behaviorsInfo.find(type) != behaviorsInfo.end())
-    return std::unique_ptr<gd::Behavior>(
-        behaviorsInfo.find(type)->second.Get()->Clone());
+    return behaviorsInfo.find(type)->second;
 
   return nullptr;
 }
 
 std::shared_ptr<gd::BehaviorsSharedData>
-PlatformExtension::CreateBehaviorSharedDatas(gd::String type) const {
+PlatformExtension::GetBehaviorSharedDatas(gd::String type) const {
   if (behaviorsInfo.find(type) != behaviorsInfo.end() &&
       behaviorsInfo.find(type)->second.GetSharedDataInstance())
-    return behaviorsInfo.find(type)->second.GetSharedDataInstance()->Clone();
+    return behaviorsInfo.find(type)->second.GetSharedDataInstance();
 
   return std::shared_ptr<gd::BehaviorsSharedData>();
 }

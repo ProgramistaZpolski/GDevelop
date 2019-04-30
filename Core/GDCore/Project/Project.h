@@ -354,12 +354,11 @@ class GD_CORE_API Project : public ObjectsContainer {
    * is not empty.<br> It is assumed that each platform provides an equivalent
    * behavior.
    *
-   * \param project The project for which the object must be created.
    * \param type The type of the behavior
    * \param platformName The name of the platform to be used. If empty, the
    * first platform supporting the object is used.
    */
-  std::unique_ptr<gd::Behavior> CreateBehavior(
+  std::unique_ptr<gd::Behavior> GetBehavior(
       const gd::String& type, const gd::String& platformName = "");
 
   /**
@@ -370,12 +369,11 @@ class GD_CORE_API Project : public ObjectsContainer {
    * platformName argument is not empty.<br> It is assumed that each platform
    * provides equivalent behavior shared data.
    *
-   * \param project The project for which the behavior shared data must be
-   * created. \param type The type of behavior shared data \param platformName
-   * The name of the platform to be used. If empty, the first platform
-   * supporting the object is used.
+   * \param type The type of behavior
+   * \param platformName The name of the platform to be used. If empty, the
+   * first platform supporting the object is used.
    */
-  std::shared_ptr<gd::BehaviorsSharedData> CreateBehaviorSharedDatas(
+  std::shared_ptr<gd::BehaviorsSharedData> GetBehaviorSharedDatas(
       const gd::String& type, const gd::String& platformName = "");
 
 #if defined(GD_IDE_ONLY)

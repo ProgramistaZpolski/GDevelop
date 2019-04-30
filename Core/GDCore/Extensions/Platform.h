@@ -137,14 +137,14 @@ class GD_CORE_API Platform {
                                            const gd::String& name) const;
 
   /**
-   * \brief Create a behavior
+   * \brief Get the class handling the behavior with the given type.
    */
-  std::unique_ptr<gd::Behavior> CreateBehavior(const gd::String& type) const;
+  std::unique_ptr<gd::Behavior> GetBehavior(const gd::String& type) const;
 
   /**
-   * \brief Create a behavior shared data object.
+   * \brief Get the class handling the behavior shared data with the given type.
    */
-  std::shared_ptr<gd::BehaviorsSharedData> CreateBehaviorSharedDatas(
+  std::shared_ptr<gd::BehaviorsSharedData> GetBehaviorSharedDatas(
       const gd::String& type) const;
 
 #if defined(GD_IDE_ONLY)

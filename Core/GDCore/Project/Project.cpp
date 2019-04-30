@@ -121,27 +121,27 @@ std::unique_ptr<gd::Object> Project::CreateObject(
   return nullptr;
 }
 
-std::unique_ptr<gd::Behavior> Project::CreateBehavior(
+std::unique_ptr<gd::Behavior> Project::GetBehavior(
     const gd::String& type, const gd::String& platformName) {
   for (std::size_t i = 0; i < platforms.size(); ++i) {
     if (!platformName.empty() && platforms[i]->GetName() != platformName)
       continue;
 
-    std::unique_ptr<gd::Behavior> behavior = platforms[i]->CreateBehavior(type);
+    std::unique_ptr<gd::Behavior> behavior = platforms[i]->GetBehavior(type);
     if (behavior) return behavior;
   }
 
   return nullptr;
 }
 
-std::shared_ptr<gd::BehaviorsSharedData> Project::CreateBehaviorSharedDatas(
+std::shared_ptr<gd::BehaviorsSharedData> Project::GetBehaviorSharedDatas(
     const gd::String& type, const gd::String& platformName) {
   for (std::size_t i = 0; i < platforms.size(); ++i) {
     if (!platformName.empty() && platforms[i]->GetName() != platformName)
       continue;
 
     std::shared_ptr<gd::BehaviorsSharedData> behavior =
-        platforms[i]->CreateBehaviorSharedDatas(type);
+        platforms[i]->GetBehaviorSharedDatas(type);
     if (behavior) return behavior;
   }
 

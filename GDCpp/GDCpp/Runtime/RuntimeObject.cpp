@@ -17,6 +17,7 @@
 #include "GDCpp/Runtime/Project/Behavior.h"
 #include "GDCpp/Runtime/Project/Object.h"
 #include "GDCpp/Runtime/RuntimeScene.h"
+#include "GDCpp/Runtime/RuntimeBehavior.h"
 
 using namespace std;
 
@@ -30,13 +31,11 @@ RuntimeObject::RuntimeObject(RuntimeScene &scene, const gd::Object &object)
       objectVariables(object.GetVariables()) {
   ClearForce();
 
+  // Create the behaviors
   behaviors.clear();
-  // Insert the new behaviors.
-  for (auto it = object.GetAllBehaviors().cbegin();
-       it != object.GetAllBehaviors().cend();
-       ++it) {
-    behaviors[it->first] = std::unique_ptr<gd::Behavior>(it->second->Clone());
-    behaviors[it->first]->SetOwner(this);
+  for (auto& it : object.GetAllBehaviorContents()) {
+    behaviors[it.first] = gd::make_unique<RuntimeBehavior>(it.second->GetContent());
+    behaviors[it.first]->SetOwner(this);
   }
 }
 
@@ -55,10 +54,11 @@ void RuntimeObject::Init(const RuntimeObject &object) {
   force5 = object.force5;
   forces = object.forces;
 
+  // Clone behaviors
   behaviors.clear();
   for (auto it = object.behaviors.cbegin(); it != object.behaviors.cend();
        ++it) {
-    behaviors[it->first] = std::unique_ptr<gd::Behavior>(it->second->Clone());
+    behaviors[it->first] = gd::make_unique<RuntimeBehavior>(*it->second->Clone());
     behaviors[it->first]->SetOwner(this);
   }
 }
@@ -652,11 +652,11 @@ bool RuntimeObject::CursorOnObject(RuntimeScene &scene, bool) {
   return false;
 }
 
-Behavior *RuntimeObject::GetBehaviorRawPointer(const gd::String &name) {
+RuntimeBehavior *RuntimeObject::GetBehaviorRawPointer(const gd::String &name) {
   return behaviors.find(name)->second.get();
 }
 
-Behavior *RuntimeObject::GetBehaviorRawPointer(const gd::String &name) const {
+RuntimeBehavior *RuntimeObject::GetBehaviorRawPointer(const gd::String &name) const {
   return behaviors.find(name)->second.get();
 }
 

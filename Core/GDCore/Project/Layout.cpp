@@ -228,7 +228,7 @@ void Layout::UpdateBehaviorsSharedData(gd::Project& project) {
     if (behaviorsInitialSharedDatas.find(allBehaviorsNames[i]) ==
         behaviorsInitialSharedDatas.end()) {
       std::shared_ptr<gd::BehaviorsSharedData> behaviorsSharedDatas =
-          project.CreateBehaviorSharedDatas(allBehaviorsTypes[i]);
+          project.CreateBehaviorSharedDatas(allBehaviorsTypes[i]); //TODO: store and make SharedDataContent
       if (behaviorsSharedDatas) {
         behaviorsSharedDatas->SetName(allBehaviorsNames[i]);
         behaviorsInitialSharedDatas[behaviorsSharedDatas->GetName()] =
@@ -371,7 +371,7 @@ void Layout::UnserializeFrom(gd::Project& project,
                             "Behavior");  // Compatibility with GD <= 4
 
     std::shared_ptr<gd::BehaviorsSharedData> sharedData =
-        project.CreateBehaviorSharedDatas(type);
+        project.CreateBehaviorSharedDatas(type);  //TODO: store and make SharedDataContent
     if (sharedData != std::shared_ptr<gd::BehaviorsSharedData>()) {
       sharedData->SetName(
           behaviorDataElement.GetStringAttribute("name", "", "Name"));

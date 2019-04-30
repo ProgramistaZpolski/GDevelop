@@ -13,13 +13,11 @@
 #include <vector>
 #include "GDCore/Tools/MakeUnique.h"
 #include "GDCpp/Runtime/Force.h"
-#include "GDCpp/Runtime/Project/Behavior.h"
+#include "GDCpp/Runtime/RuntimeBehavior.h"
 #include "GDCpp/Runtime/RuntimeVariablesContainer.h"
 #include "GDCpp/Runtime/String.h"
 namespace gd {
 class InitialInstance;
-}
-namespace gd {
 class Object;
 }
 namespace sf {
@@ -175,12 +173,12 @@ class GD_API RuntimeObject {
   /**
    * Only used by GD events generated code
    */
-  gd::Behavior* GetBehaviorRawPointer(const gd::String& name);
+  RuntimeBehavior* GetBehaviorRawPointer(const gd::String& name);
 
   /**
    * Only used by GD events generated code
    */
-  gd::Behavior* GetBehaviorRawPointer(const gd::String& name) const;
+  RuntimeBehavior* GetBehaviorRawPointer(const gd::String& name) const;
 
   /**
    * \brief Return true if the object has the behavior with the specified name.
@@ -610,7 +608,7 @@ class GD_API RuntimeObject {
                 ///< before another object.
   bool hidden;  ///< True to prevent the object from being rendered.
   gd::String layer;  ///< Name of the layer on which the object is.
-  std::map<gd::String, std::unique_ptr<gd::Behavior>>
+  std::map<gd::String, std::unique_ptr<RuntimeBehavior>>
       behaviors;  ///< Contains all behaviors of the object. Behaviors are the
                   ///< ownership of the object
   RuntimeVariablesContainer
